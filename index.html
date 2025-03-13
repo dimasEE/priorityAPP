@@ -1,315 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progress Tracker</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    <div class="container">
-        <h1>Progress Tracker</h1>
-        <div id="app"></div>
-    </div>
-
-    <script>
-        // Your JSON data
-        const data = {
-            "Health": {
-                "Habits": {
-                    "Food": {
-                        "HILANGKAN MINUM MANIS": 50,
-                        "MAKAN DUA KALI SEHARI": 50,
-                        "HABISKAN 1 TEKO AIR MINERAL PER HARI": 50
-                    },
-                    "Sleep": {
-                        "8 JAM": 50
-                    },
-                    "Gym / Olahraga": {
-                        "Selasa": 50,
-                        "Minggu": 50
-                    }
-                },
-                "Invest": {
-                    "Treadmill": 50,
-                    "Smith Machine": 50,
-                    "MEDICAL CHECK UP": 50
-                },
-                "Avoid": {
-                    "KURANGI GULA": 50,
-                    "KURANGI MINYAK": 50,
-                    "KURANG TEPUNG": 50,
-                    "KURANGI BERGADANG": 50
-                }
-            },
-            "Career": {
-                "Habits": {
-                    "English Exercises": {
-                        "EVERYDAY": 50,
-                        "IELTS": 50
-                    },
-                    "YOUTUBE": {
-                        "BANNER": 50,
-                        "THUMBNAIL": 50,
-                        "LIST KONTEN": 50
-                    },
-                    "MASTER'S DEGREE FOR US": {
-                        "NEW ZEALAND": 50,
-                        "AUSTRALIA": 50
-                    },
-                    "AMBIL FOTO": {
-                        "SETELAH MEMASAK": 50,
-                        "KULINERAN": 50,
-                        "TRAVELLING": 50,
-                        "HOBBY": 50
-                    },
-                    "MENJAGA KEBERSIHAN": {
-                        "SUDUT AESTHETIC": 50,
-                        "MEJA KERJA": 50
-                    }
-                },
-                "Invest": {
-                    "SUDUT AESTHETIC": 50,
-                    "IPHONE": 50,
-                    "IKUT KURSUS UNTUK MUMU": 50
-                },
-                "Avoid": {
-                    "MOOD SWING": 50
-                }
-            },
-            "Retirement": {
-                "Habits": {
-                    "CATAT PENGELUARAN": {
-                        "HP": 50,
-                        "MONTHLY FINANCIAL REPORT": 50
-                    },
-                    "ASURANSI / INSURANCE": {
-                        "SEMUANYA BPJS KELAS 1": 50,
-                        "ASURANSI JIWA": 50,
-                        "BALIK NAMA RUMAH INI SETELAH LUNAS": 50
-                    }
-                },
-                "Invest": {
-                    "DANA DARURAT 6 (ENAM) BULAN PENGELUARAN": 50,
-                    "GOLD EMAS UBS": 50,
-                    "CURRENT ASSET (ASSET YANG MUDAH DICAIRKAN)": 50
-                },
-                "Avoid": {
-                    "HEDON": 50,
-                    "FLEXING": 50
-                }
-            },
-            "Happiness": {
-                "Habits": {
-                    "HEALING": {
-                        "BALI 25025": 50,
-                        "SINGAPORE 25025": 50,
-                        "UMROH @350JT": 50
-                    },
-                    "KULINER": {
-                        "MAKSIMAL 2X": 50
-                    }
-                },
-                "Invest": {
-                    "PROYEKTOR": 50
-                },
-                "Avoid": {
-                    "HINDARI LAPAR MATA": 50
-                }
-            },
-            "Family": {
-                "Habits": {
-                    "UANG BULANAN": {
-                        "BAPAK IBUK MUMU": 50,
-                        "BAPAK IBUK US": 50
-                    },
-                    "MEDICAL CHECK UP": {
-                        "BAPAK IBUK MUMU": 50,
-                        "BAPAK IBUK US": 50
-                    }
-                },
-                "Invest": {},
-                "Avoid": {
-                    "MOOD SWING": 50
-                }
-            },
-            "Afterlife": {
-                "Habits": {
-                    "IBADAH": {
-                        "SHOLAT 5 WAKTU": 50,
-                        "PUASA": 50,
-                        "SEDEKAH": 50
-                    }
-                },
-                "Invest": {
-                    "UPGRADE ILMU": {
-                        "KAJIAN ONLINE": 50,
-                        "TAFSIR AL-QUR'AN & HADIST": 50
-                    }
-                },
-                "Avoid": {
-                    "INCOME HARAM": 50,
-                    "MAKANAN / MINUMAN HARAM": 50
-                }
-            }
-        };
-
-        // Function to check if a value is an integer
-        function isIntegerValue(value) {
-            return Number.isInteger(value) || (typeof value === 'number' && !isNaN(value));
-        }
-
-        // Function to create progress item
-        function createProgressItem(name, value) {
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'item';
-
-            const itemHeader = document.createElement('div');
-            itemHeader.className = 'item-header';
-
-            const itemName = document.createElement('div');
-            itemName.className = 'item-name';
-            itemName.textContent = name;
-
-            const controls = document.createElement('div');
-            controls.className = 'controls';
-
-            const minusBtn = document.createElement('button');
-            minusBtn.className = 'control-btn minus-btn';
-            minusBtn.textContent = '-';
-            minusBtn.addEventListener('click', () => {
-                if (value > 0) {
-                    value -= 5;
-                    updateProgress();
-                }
-            });
-
-            const valueSpan = document.createElement('span');
-            valueSpan.className = 'value';
-            valueSpan.textContent = value;
-
-            const plusBtn = document.createElement('button');
-            plusBtn.className = 'control-btn plus-btn';
-            plusBtn.textContent = '+';
-            plusBtn.addEventListener('click', () => {
-                if (value < 100) {
-                    value += 5;
-                    updateProgress();
-                }
-            });
-
-            // Progress bar
-            const progressContainer = document.createElement('div');
-            progressContainer.className = 'progress-container';
-
-            const progressBar = document.createElement('div');
-            progressBar.className = 'progress-bar';
-            progressBar.style.width = `${value}%`;
-
-            function updateProgress() {
-                valueSpan.textContent = value;
-                progressBar.style.width = `${value}%`;
-            }
-
-            controls.appendChild(minusBtn);
-            controls.appendChild(valueSpan);
-            controls.appendChild(plusBtn);
-
-            itemHeader.appendChild(itemName);
-            itemHeader.appendChild(controls);
-
-            progressContainer.appendChild(progressBar);
-
-            itemDiv.appendChild(itemHeader);
-            itemDiv.appendChild(progressContainer);
-
-            return itemDiv;
-        }
-
-        // Function to process and build the UI
-        function buildUI(data, parentElement, level = 1) {
-            for (const category in data) {
-                const categoryValue = data[category];
-
-                // Skip empty objects
-                if (Object.keys(categoryValue).length === 0) {
-                    continue;
-                }
-
-                const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'category';
-
-                const categoryTitle = document.createElement(`h${level}`);
-                categoryTitle.textContent = category;
-
-                // Make categories expandable/collapsible
-                if (typeof categoryValue === 'object') {
-                    categoryDiv.classList.add('expanded-view');
-
-                    categoryTitle.addEventListener('click', () => {
-                        categoryDiv.classList.toggle('collapsed');
-                    });
-                }
-
-                categoryDiv.appendChild(categoryTitle);
-
-                if (typeof categoryValue === 'object' && !isIntegerValue(categoryValue)) {
-                    // This is a nested object
-                    if (level === 2) {
-                        // This is a subcategory (Habits, Invest, Avoid)
-                        const subcategoryDiv = document.createElement('div');
-                        subcategoryDiv.className = 'subcategory-content';
-                        buildUI(categoryValue, subcategoryDiv, level + 1);
-                        categoryDiv.appendChild(subcategoryDiv);
-                    } else {
-                        // Create items container
-                        const items = document.createElement('div');
-                        items.className = 'items';
-
-                        // Check if we need to process items or continue nesting
-                        let hasIntegerChildren = false;
-
-                        for (const key in categoryValue) {
-                            const val = categoryValue[key];
-                            if (isIntegerValue(val)) {
-                                hasIntegerChildren = true;
-                                items.appendChild(createProgressItem(key, val));
-                            }
-                        }
-
-                        if (hasIntegerChildren) {
-                            categoryDiv.appendChild(items);
-                        } else {
-                            // Continue building nested structure
-                            buildUI(categoryValue, categoryDiv, level + 1);
-                        }
-                    }
-                } else if (isIntegerValue(categoryValue)) {
-                    // This is a leaf node with an integer value
-                    categoryDiv.appendChild(createProgressItem(category, categoryValue));
-                }
-
-                parentElement.appendChild(categoryDiv);
-            }
-        }
-
-        // Get the app container and build the UI
-        const appContainer = document.getElementById('app');
-        buildUI(data, appContainer);
-
-        // Automatically collapse second-level categories to make the UI cleaner
-        document.querySelectorAll('.category > .subcategory-content > .category').forEach(cat => {
-            cat.classList.add('collapsed');
-        });
-    </script>
-</body>
-
-</html> -->
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -531,9 +219,8 @@
         // Store the data globally for access
         let globalData = {};
 
-        // Path references - you might need to adjust these based on your server setup
+        // Path to the initial JSON file
         const jsonFilePath = 'priority.json';
-        const updateEndpoint = 'update_priority.php'; // Server-side script to handle updates
 
         // Function to show notifications
         function showNotification(message, isError = false) {
@@ -571,33 +258,21 @@
             current[path[path.length - 1]] = newValue;
         }
 
-        // Function to save the updated data back to the server
+        // Function to save the updated data to localStorage
         function saveData() {
-            return fetch(updateEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(globalData)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to save data');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    showNotification('Progress updated successfully!');
-                    return data;
-                })
-                .catch(error => {
-                    console.error('Error saving data:', error);
-                    showNotification('Failed to save changes. Please try again.', true);
-                    throw error;
-                });
+            try {
+                // Save to localStorage
+                localStorage.setItem('progressData', JSON.stringify(globalData));
+                showNotification('Progress updated successfully!');
+                return Promise.resolve({ success: true });
+            } catch (error) {
+                console.error('Error saving data:', error);
+                showNotification('Failed to save changes. Please try again.', true);
+                return Promise.reject(error);
+            }
         }
 
-        // Debounce function to limit the frequency of API calls
+        // Debounce function to limit the frequency of save operations
         function debounce(func, wait) {
             let timeout;
             return function (...args) {
@@ -756,8 +431,30 @@
             }
         }
 
-        // Function to fetch the JSON data
+        // Function to fetch data from localStorage or fallback to JSON file
         function fetchData() {
+            // Try to get data from localStorage first
+            const savedData = localStorage.getItem('progressData');
+
+            if (savedData) {
+                try {
+                    globalData = JSON.parse(savedData);
+                    document.getElementById('loading').style.display = 'none';
+                    const appContainer = document.getElementById('app');
+                    buildUI(globalData, appContainer);
+
+                    // Automatically collapse second-level categories to make the UI cleaner
+                    document.querySelectorAll('.category > .subcategory-content > .category').forEach(cat => {
+                        cat.classList.add('collapsed');
+                    });
+                    return;
+                } catch (e) {
+                    console.error('Error parsing saved data:', e);
+                    // If there's an error parsing localStorage data, we'll fall through to fetch from file
+                }
+            }
+
+            // Fallback to loading the initial JSON
             fetch(jsonFilePath)
                 .then(response => {
                     if (!response.ok) {
@@ -788,8 +485,76 @@
                 });
         }
 
-        // Initial data fetch when the page loads
-        document.addEventListener('DOMContentLoaded', fetchData);
+        // Add button to export data
+        function addExportButton() {
+            const container = document.querySelector('.container');
+
+            const exportContainer = document.createElement('div');
+            exportContainer.style.textAlign = 'center';
+            exportContainer.style.marginTop = '20px';
+            exportContainer.style.marginBottom = '20px';
+
+            const exportButton = document.createElement('button');
+            exportButton.textContent = 'Export Data';
+            exportButton.style.padding = '10px 20px';
+            exportButton.style.backgroundColor = 'var(--primary-color)';
+            exportButton.style.color = 'white';
+            exportButton.style.border = 'none';
+            exportButton.style.borderRadius = '4px';
+            exportButton.style.cursor = 'pointer';
+
+            exportButton.addEventListener('click', () => {
+                const dataStr = JSON.stringify(globalData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+                const exportFileDefaultName = 'priority.json';
+
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+
+                showNotification('Data exported successfully!');
+            });
+
+            exportContainer.appendChild(exportButton);
+            container.insertBefore(exportContainer, document.getElementById('app'));
+        }
+
+        // Function to add a reset button
+        function addResetButton() {
+            const container = document.querySelector('.container');
+
+            const resetContainer = document.createElement('div');
+            resetContainer.style.textAlign = 'center';
+            resetContainer.style.marginTop = '10px';
+
+            const resetButton = document.createElement('button');
+            resetButton.textContent = 'Reset to Initial Data';
+            resetButton.style.padding = '8px 15px';
+            resetButton.style.backgroundColor = 'var(--danger-color)';
+            resetButton.style.color = 'white';
+            resetButton.style.border = 'none';
+            resetButton.style.borderRadius = '4px';
+            resetButton.style.cursor = 'pointer';
+
+            resetButton.addEventListener('click', () => {
+                if (confirm('Are you sure you want to reset to the initial data? All your changes will be lost.')) {
+                    localStorage.removeItem('progressData');
+                    location.reload();
+                }
+            });
+
+            resetContainer.appendChild(resetButton);
+            container.insertBefore(resetContainer, document.getElementById('app'));
+        }
+
+        // Initial data fetch and UI setup when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+            addExportButton();
+            addResetButton();
+        });
     </script>
 </body>
 
