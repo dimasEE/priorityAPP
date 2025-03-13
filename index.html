@@ -1,0 +1,796 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Progress Tracker</h1>
+        <div id="app"></div>
+    </div>
+
+    <script>
+        // Your JSON data
+        const data = {
+            "Health": {
+                "Habits": {
+                    "Food": {
+                        "HILANGKAN MINUM MANIS": 50,
+                        "MAKAN DUA KALI SEHARI": 50,
+                        "HABISKAN 1 TEKO AIR MINERAL PER HARI": 50
+                    },
+                    "Sleep": {
+                        "8 JAM": 50
+                    },
+                    "Gym / Olahraga": {
+                        "Selasa": 50,
+                        "Minggu": 50
+                    }
+                },
+                "Invest": {
+                    "Treadmill": 50,
+                    "Smith Machine": 50,
+                    "MEDICAL CHECK UP": 50
+                },
+                "Avoid": {
+                    "KURANGI GULA": 50,
+                    "KURANGI MINYAK": 50,
+                    "KURANG TEPUNG": 50,
+                    "KURANGI BERGADANG": 50
+                }
+            },
+            "Career": {
+                "Habits": {
+                    "English Exercises": {
+                        "EVERYDAY": 50,
+                        "IELTS": 50
+                    },
+                    "YOUTUBE": {
+                        "BANNER": 50,
+                        "THUMBNAIL": 50,
+                        "LIST KONTEN": 50
+                    },
+                    "MASTER'S DEGREE FOR US": {
+                        "NEW ZEALAND": 50,
+                        "AUSTRALIA": 50
+                    },
+                    "AMBIL FOTO": {
+                        "SETELAH MEMASAK": 50,
+                        "KULINERAN": 50,
+                        "TRAVELLING": 50,
+                        "HOBBY": 50
+                    },
+                    "MENJAGA KEBERSIHAN": {
+                        "SUDUT AESTHETIC": 50,
+                        "MEJA KERJA": 50
+                    }
+                },
+                "Invest": {
+                    "SUDUT AESTHETIC": 50,
+                    "IPHONE": 50,
+                    "IKUT KURSUS UNTUK MUMU": 50
+                },
+                "Avoid": {
+                    "MOOD SWING": 50
+                }
+            },
+            "Retirement": {
+                "Habits": {
+                    "CATAT PENGELUARAN": {
+                        "HP": 50,
+                        "MONTHLY FINANCIAL REPORT": 50
+                    },
+                    "ASURANSI / INSURANCE": {
+                        "SEMUANYA BPJS KELAS 1": 50,
+                        "ASURANSI JIWA": 50,
+                        "BALIK NAMA RUMAH INI SETELAH LUNAS": 50
+                    }
+                },
+                "Invest": {
+                    "DANA DARURAT 6 (ENAM) BULAN PENGELUARAN": 50,
+                    "GOLD EMAS UBS": 50,
+                    "CURRENT ASSET (ASSET YANG MUDAH DICAIRKAN)": 50
+                },
+                "Avoid": {
+                    "HEDON": 50,
+                    "FLEXING": 50
+                }
+            },
+            "Happiness": {
+                "Habits": {
+                    "HEALING": {
+                        "BALI 25025": 50,
+                        "SINGAPORE 25025": 50,
+                        "UMROH @350JT": 50
+                    },
+                    "KULINER": {
+                        "MAKSIMAL 2X": 50
+                    }
+                },
+                "Invest": {
+                    "PROYEKTOR": 50
+                },
+                "Avoid": {
+                    "HINDARI LAPAR MATA": 50
+                }
+            },
+            "Family": {
+                "Habits": {
+                    "UANG BULANAN": {
+                        "BAPAK IBUK MUMU": 50,
+                        "BAPAK IBUK US": 50
+                    },
+                    "MEDICAL CHECK UP": {
+                        "BAPAK IBUK MUMU": 50,
+                        "BAPAK IBUK US": 50
+                    }
+                },
+                "Invest": {},
+                "Avoid": {
+                    "MOOD SWING": 50
+                }
+            },
+            "Afterlife": {
+                "Habits": {
+                    "IBADAH": {
+                        "SHOLAT 5 WAKTU": 50,
+                        "PUASA": 50,
+                        "SEDEKAH": 50
+                    }
+                },
+                "Invest": {
+                    "UPGRADE ILMU": {
+                        "KAJIAN ONLINE": 50,
+                        "TAFSIR AL-QUR'AN & HADIST": 50
+                    }
+                },
+                "Avoid": {
+                    "INCOME HARAM": 50,
+                    "MAKANAN / MINUMAN HARAM": 50
+                }
+            }
+        };
+
+        // Function to check if a value is an integer
+        function isIntegerValue(value) {
+            return Number.isInteger(value) || (typeof value === 'number' && !isNaN(value));
+        }
+
+        // Function to create progress item
+        function createProgressItem(name, value) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'item';
+
+            const itemHeader = document.createElement('div');
+            itemHeader.className = 'item-header';
+
+            const itemName = document.createElement('div');
+            itemName.className = 'item-name';
+            itemName.textContent = name;
+
+            const controls = document.createElement('div');
+            controls.className = 'controls';
+
+            const minusBtn = document.createElement('button');
+            minusBtn.className = 'control-btn minus-btn';
+            minusBtn.textContent = '-';
+            minusBtn.addEventListener('click', () => {
+                if (value > 0) {
+                    value -= 5;
+                    updateProgress();
+                }
+            });
+
+            const valueSpan = document.createElement('span');
+            valueSpan.className = 'value';
+            valueSpan.textContent = value;
+
+            const plusBtn = document.createElement('button');
+            plusBtn.className = 'control-btn plus-btn';
+            plusBtn.textContent = '+';
+            plusBtn.addEventListener('click', () => {
+                if (value < 100) {
+                    value += 5;
+                    updateProgress();
+                }
+            });
+
+            // Progress bar
+            const progressContainer = document.createElement('div');
+            progressContainer.className = 'progress-container';
+
+            const progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            progressBar.style.width = `${value}%`;
+
+            function updateProgress() {
+                valueSpan.textContent = value;
+                progressBar.style.width = `${value}%`;
+            }
+
+            controls.appendChild(minusBtn);
+            controls.appendChild(valueSpan);
+            controls.appendChild(plusBtn);
+
+            itemHeader.appendChild(itemName);
+            itemHeader.appendChild(controls);
+
+            progressContainer.appendChild(progressBar);
+
+            itemDiv.appendChild(itemHeader);
+            itemDiv.appendChild(progressContainer);
+
+            return itemDiv;
+        }
+
+        // Function to process and build the UI
+        function buildUI(data, parentElement, level = 1) {
+            for (const category in data) {
+                const categoryValue = data[category];
+
+                // Skip empty objects
+                if (Object.keys(categoryValue).length === 0) {
+                    continue;
+                }
+
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+
+                const categoryTitle = document.createElement(`h${level}`);
+                categoryTitle.textContent = category;
+
+                // Make categories expandable/collapsible
+                if (typeof categoryValue === 'object') {
+                    categoryDiv.classList.add('expanded-view');
+
+                    categoryTitle.addEventListener('click', () => {
+                        categoryDiv.classList.toggle('collapsed');
+                    });
+                }
+
+                categoryDiv.appendChild(categoryTitle);
+
+                if (typeof categoryValue === 'object' && !isIntegerValue(categoryValue)) {
+                    // This is a nested object
+                    if (level === 2) {
+                        // This is a subcategory (Habits, Invest, Avoid)
+                        const subcategoryDiv = document.createElement('div');
+                        subcategoryDiv.className = 'subcategory-content';
+                        buildUI(categoryValue, subcategoryDiv, level + 1);
+                        categoryDiv.appendChild(subcategoryDiv);
+                    } else {
+                        // Create items container
+                        const items = document.createElement('div');
+                        items.className = 'items';
+
+                        // Check if we need to process items or continue nesting
+                        let hasIntegerChildren = false;
+
+                        for (const key in categoryValue) {
+                            const val = categoryValue[key];
+                            if (isIntegerValue(val)) {
+                                hasIntegerChildren = true;
+                                items.appendChild(createProgressItem(key, val));
+                            }
+                        }
+
+                        if (hasIntegerChildren) {
+                            categoryDiv.appendChild(items);
+                        } else {
+                            // Continue building nested structure
+                            buildUI(categoryValue, categoryDiv, level + 1);
+                        }
+                    }
+                } else if (isIntegerValue(categoryValue)) {
+                    // This is a leaf node with an integer value
+                    categoryDiv.appendChild(createProgressItem(category, categoryValue));
+                }
+
+                parentElement.appendChild(categoryDiv);
+            }
+        }
+
+        // Get the app container and build the UI
+        const appContainer = document.getElementById('app');
+        buildUI(data, appContainer);
+
+        // Automatically collapse second-level categories to make the UI cleaner
+        document.querySelectorAll('.category > .subcategory-content > .category').forEach(cat => {
+            cat.classList.add('collapsed');
+        });
+    </script>
+</body>
+
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracker</title>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success-color: #4cc9f0;
+            --danger-color: #f72585;
+            --text-color: #2b2d42;
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            padding: 20px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category {
+            margin-bottom: 30px;
+        }
+
+        .subcategory {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .items {
+            margin-top: 15px;
+        }
+
+        .item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .item-name {
+            font-weight: 600;
+            flex-grow: 1;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .minus-btn {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .plus-btn {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .value {
+            font-weight: bold;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .expanded-view {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .expanded-view h2,
+        .expanded-view h3 {
+            display: flex;
+            align-items: center;
+        }
+
+        .expanded-view h2::after,
+        .expanded-view h3::after {
+            content: '▼';
+            margin-left: 10px;
+            font-size: 12px;
+        }
+
+        .collapsed h2::after,
+        .collapsed h3::after {
+            content: '►';
+        }
+
+        .collapsed .subcategory-content,
+        .collapsed .items {
+            display: none;
+        }
+
+        #loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        #notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: var(--success-color);
+            color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+        }
+
+        .notification-error {
+            background-color: var(--danger-color) !important;
+        }
+
+        @media (max-width: 768px) {
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .controls {
+                margin-top: 8px;
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Progress Tracker</h1>
+        <div id="loading">Loading data from priority.json...</div>
+        <div id="app"></div>
+    </div>
+    <div id="notification"></div>
+
+    <script>
+        // Store the data globally for access
+        let globalData = {};
+
+        // Path references - you might need to adjust these based on your server setup
+        const jsonFilePath = 'priority.json';
+        const updateEndpoint = 'update_priority.php'; // Server-side script to handle updates
+
+        // Function to show notifications
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+
+            if (isError) {
+                notification.classList.add('notification-error');
+            } else {
+                notification.classList.remove('notification-error');
+            }
+
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Function to check if a value is an integer
+        function isIntegerValue(value) {
+            return Number.isInteger(value) || (typeof value === 'number' && !isNaN(value));
+        }
+
+        // Function to update value in the global data structure
+        function updateValueInData(path, newValue) {
+            let current = globalData;
+
+            // Navigate through the path except the last element
+            for (let i = 0; i < path.length - 1; i++) {
+                current = current[path[i]];
+            }
+
+            // Update the value at the last path element
+            current[path[path.length - 1]] = newValue;
+        }
+
+        // Function to save the updated data back to the server
+        function saveData() {
+            return fetch(updateEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(globalData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to save data');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    showNotification('Progress updated successfully!');
+                    return data;
+                })
+                .catch(error => {
+                    console.error('Error saving data:', error);
+                    showNotification('Failed to save changes. Please try again.', true);
+                    throw error;
+                });
+        }
+
+        // Debounce function to limit the frequency of API calls
+        function debounce(func, wait) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // Debounced save function (saves after 500ms of inactivity)
+        const debouncedSave = debounce(saveData, 500);
+
+        // Function to create progress item
+        function createProgressItem(name, value, path) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'item';
+
+            const itemHeader = document.createElement('div');
+            itemHeader.className = 'item-header';
+
+            const itemName = document.createElement('div');
+            itemName.className = 'item-name';
+            itemName.textContent = name;
+
+            const controls = document.createElement('div');
+            controls.className = 'controls';
+
+            const minusBtn = document.createElement('button');
+            minusBtn.className = 'control-btn minus-btn';
+            minusBtn.textContent = '-';
+            minusBtn.addEventListener('click', () => {
+                if (value > 0) {
+                    value -= 5;
+                    updateProgress();
+
+                    // Update global data
+                    updateValueInData(path, value);
+
+                    // Save the updated data
+                    debouncedSave();
+                }
+            });
+
+            const valueSpan = document.createElement('span');
+            valueSpan.className = 'value';
+            valueSpan.textContent = value;
+
+            const plusBtn = document.createElement('button');
+            plusBtn.className = 'control-btn plus-btn';
+            plusBtn.textContent = '+';
+            plusBtn.addEventListener('click', () => {
+                if (value < 100) {
+                    value += 5;
+                    updateProgress();
+
+                    // Update global data
+                    updateValueInData(path, value);
+
+                    // Save the updated data
+                    debouncedSave();
+                }
+            });
+
+            // Progress bar
+            const progressContainer = document.createElement('div');
+            progressContainer.className = 'progress-container';
+
+            const progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            progressBar.style.width = `${value}%`;
+
+            function updateProgress() {
+                valueSpan.textContent = value;
+                progressBar.style.width = `${value}%`;
+            }
+
+            controls.appendChild(minusBtn);
+            controls.appendChild(valueSpan);
+            controls.appendChild(plusBtn);
+
+            itemHeader.appendChild(itemName);
+            itemHeader.appendChild(controls);
+
+            progressContainer.appendChild(progressBar);
+
+            itemDiv.appendChild(itemHeader);
+            itemDiv.appendChild(progressContainer);
+
+            return itemDiv;
+        }
+
+        // Function to process and build the UI
+        function buildUI(data, parentElement, level = 1, path = []) {
+            for (const category in data) {
+                const categoryValue = data[category];
+                const currentPath = [...path, category];
+
+                // Skip empty objects
+                if (typeof categoryValue === 'object' && Object.keys(categoryValue).length === 0) {
+                    continue;
+                }
+
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+
+                const categoryTitle = document.createElement(`h${level}`);
+                categoryTitle.textContent = category;
+
+                // Make categories expandable/collapsible
+                if (typeof categoryValue === 'object' && !isIntegerValue(categoryValue)) {
+                    categoryDiv.classList.add('expanded-view');
+
+                    categoryTitle.addEventListener('click', () => {
+                        categoryDiv.classList.toggle('collapsed');
+                    });
+                }
+
+                categoryDiv.appendChild(categoryTitle);
+
+                if (typeof categoryValue === 'object' && !isIntegerValue(categoryValue)) {
+                    // This is a nested object
+                    if (level === 2) {
+                        // This is a subcategory (Habits, Invest, Avoid)
+                        const subcategoryDiv = document.createElement('div');
+                        subcategoryDiv.className = 'subcategory-content';
+                        buildUI(categoryValue, subcategoryDiv, level + 1, currentPath);
+                        categoryDiv.appendChild(subcategoryDiv);
+                    } else {
+                        // Create items container
+                        const items = document.createElement('div');
+                        items.className = 'items';
+
+                        // Check if we need to process items or continue nesting
+                        let hasIntegerChildren = false;
+
+                        for (const key in categoryValue) {
+                            const val = categoryValue[key];
+                            if (isIntegerValue(val)) {
+                                hasIntegerChildren = true;
+                                items.appendChild(createProgressItem(key, val, [...currentPath, key]));
+                            }
+                        }
+
+                        if (hasIntegerChildren) {
+                            categoryDiv.appendChild(items);
+                        } else {
+                            // Continue building nested structure
+                            buildUI(categoryValue, categoryDiv, level + 1, currentPath);
+                        }
+                    }
+                } else if (isIntegerValue(categoryValue)) {
+                    // This is a leaf node with an integer value
+                    categoryDiv.appendChild(createProgressItem(category, categoryValue, currentPath));
+                }
+
+                parentElement.appendChild(categoryDiv);
+            }
+        }
+
+        // Function to fetch the JSON data
+        function fetchData() {
+            fetch(jsonFilePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load priority.json');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Store data globally
+                    globalData = data;
+
+                    // Hide loading indicator
+                    document.getElementById('loading').style.display = 'none';
+
+                    // Get the app container and build the UI
+                    const appContainer = document.getElementById('app');
+                    buildUI(data, appContainer);
+
+                    // Automatically collapse second-level categories to make the UI cleaner
+                    document.querySelectorAll('.category > .subcategory-content > .category').forEach(cat => {
+                        cat.classList.add('collapsed');
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                    document.getElementById('loading').textContent = 'Error loading data. Please check if priority.json exists and is accessible.';
+                    document.getElementById('loading').style.color = 'red';
+                });
+        }
+
+        // Initial data fetch when the page loads
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+</body>
+
+</html>

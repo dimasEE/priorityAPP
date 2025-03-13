@@ -1,0 +1,139 @@
+{
+    "Health": {
+        "Habits": {
+            "Food": {
+                "HILANGKAN MINUM MANIS": 50,
+                "MAKAN DUA KALI SEHARI": 50,
+                "HABISKAN 1 TEKO AIR MINERAL PER HARI": 50
+            },
+            "Sleep": {
+                "8 JAM": 50
+            },
+            "Gym / Olahraga": {
+                "Selasa": 50,
+                "Minggu": 50
+            }
+        },
+        "Invest": {
+            "Treadmill": 50,
+            "Smith Machine": 50,
+            "MEDICAL CHECK UP": 50
+        },
+        "Avoid": {
+            "KURANGI GULA": 50,
+            "KURANGI MINYAK": 50,
+            "KURANG TEPUNG": 50,
+            "KURANGI BERGADANG": 50
+        }
+    },
+    "Career": {
+        "Habits": {
+            "English Exercises": {
+                "EVERYDAY": 50,
+                "IELTS": 50
+            },
+            "YOUTUBE": {
+                "BANNER": 50,
+                "THUMBNAIL": 50,
+                "LIST KONTEN": 50
+            },
+            "MASTER'S DEGREE FOR US": {
+                "NEW ZEALAND": 50,
+                "AUSTRALIA": 50
+            },
+            "AMBIL FOTO": {
+                "SETELAH MEMASAK": 50,
+                "KULINERAN": 50,
+                "TRAVELLING": 50,
+                "HOBBY": 50
+            },
+            "MENJAGA KEBERSIHAN": {
+                "SUDUT AESTHETIC": 50,
+                "MEJA KERJA": 50
+            }
+        },
+        "Invest": {
+            "SUDUT AESTHETIC": 50,
+            "IPHONE": 50,
+            "IKUT KURSUS UNTUK MUMU": 50
+        },
+        "Avoid": {
+            "MOOD SWING": 50
+        }
+    },
+    "Retirement": {
+        "Habits": {
+            "CATAT PENGELUARAN": {
+                "HP": 50,
+                "MONTHLY FINANCIAL REPORT": 50
+            },
+            "ASURANSI / INSURANCE": {
+                "SEMUANYA BPJS KELAS 1": 50,
+                "ASURANSI JIWA": 50,
+                "BALIK NAMA RUMAH INI SETELAH LUNAS": 50
+            }
+        },
+        "Invest": {
+            "DANA DARURAT 6 (ENAM) BULAN PENGELUARAN": 50,
+            "GOLD EMAS UBS": 50,
+            "CURRENT ASSET (ASSET YANG MUDAH DICAIRKAN)": 50
+        },
+        "Avoid": {
+            "HEDON": 50,
+            "FLEXING": 50
+        }
+    },
+    "Happiness": {
+        "Habits": {
+            "HEALING": {
+                "BALI 25025": 50,
+                "SINGAPORE 25025": 50,
+                "UMROH @350JT": 50
+            },
+            "KULINER": {
+                "MAKSIMAL 2X": 50
+            }
+        },
+        "Invest": {
+            "PROYEKTOR": 50
+        },
+        "Avoid": {
+            "HINDARI LAPAR MATA": 50
+        }
+    },
+    "Family": {
+        "Habits": {
+            "UANG BULANAN": {
+                "BAPAK IBUK MUMU": 50,
+                "BAPAK IBUK US": 50
+            },
+            "MEDICAL CHECK UP": {
+                "BAPAK IBUK MUMU": 50,
+                "BAPAK IBUK US": 50
+            }
+        },
+        "Invest": {},
+        "Avoid": {
+            "MOOD SWING": 50
+        }
+    },
+    "Afterlife": {
+        "Habits": {
+            "IBADAH": {
+                "SHOLAT 5 WAKTU": 50,
+                "PUASA": 50,
+                "SEDEKAH": 50
+            }
+        },
+        "Invest": {
+            "UPGRADE ILMU": {
+                "KAJIAN ONLINE": 50,
+                "TAFSIR AL-QUR'AN & HADIST": 50
+            }
+        },
+        "Avoid": {
+            "INCOME HARAM": 50,
+            "MAKANAN / MINUMAN HARAM": 50
+        }
+    }
+}
